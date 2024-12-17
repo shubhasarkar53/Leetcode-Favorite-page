@@ -18,17 +18,18 @@ function CheckBox({ item, index }) {
   }
 
   //good pratice to have but because of "med" "medium" isuue commenting still
-  // const isChecked = filterArr.includes(item );
+  const isChecked = filterArr.includes(item );
 
   return (
     <li key={index} className="flex items-center gap-2">
       <input
         onChange={handleCheckBoxValue}
         type="checkbox"
-        // checked={isChecked}
+        checked={isChecked}
         id={index}
         name={item}
-        value={item == "medium" ? "med" : item }
+        // value={item == "medium" ? "med" : item }
+        value={item }
         className="
   relative peer shrink-0
   appearance-none w-4 h-4 border border-white-secondary rounded-[4px] bg-transparent

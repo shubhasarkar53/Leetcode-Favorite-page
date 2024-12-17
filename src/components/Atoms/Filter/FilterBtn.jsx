@@ -54,7 +54,7 @@ function FilterBtn() {
                   return <CheckBox on item={item} index={index} key={index} />;
                 })}
               </ul>
-              <button className="my-3 px-4 py-2 bg-black-light-2 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 text-sm font-medium text-white-primary hover:bg-[#3d3d3b]">
+              <button onClick={()=> setFilterArr([])} className="my-3 px-4 py-2 bg-black-light-2 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 text-sm font-medium text-white-primary hover:bg-[#3d3d3b]">
                 {" "}
                 <Refresh className="size-5" /> Reset{" "}
               </button>

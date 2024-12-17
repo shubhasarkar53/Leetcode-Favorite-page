@@ -8,6 +8,13 @@ import { FilterContext } from "../../contexts/filterContext";
 function FavouritePage({ data }) {
   const [filterArr, setFilterArr] = useState([]);
 
+  //levelmapping for handling the "medium"-"med" issue
+  const levelMapping = {
+    easy: "easy",
+    medium: "med",
+    hard: "hard",
+  };
+
   return (
     <FilterContext.Provider value={[filterArr, setFilterArr]}>
       <Container>
@@ -23,7 +30,12 @@ function FavouritePage({ data }) {
                     <QuestionListItem key={index} questionDetail={question} />
                   ))
                 : data.savedQuestions
-                    .filter((question) => filterArr.includes(question.level))
+                    // .filter((question) => filterArr.includes(question.level))
+                    .filter((question) =>
+                      filterArr
+                        .map((level) => levelMapping[level])
+                        .includes(question.level)
+                    )
                     .map((question, index) => (
                       <QuestionListItem key={index} questionDetail={question} />
                     ))}
