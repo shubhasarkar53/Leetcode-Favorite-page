@@ -11,31 +11,24 @@ import Share from "../icons/Share";
 import Refresh from "../icons/Refresh";
 import LevelSquare from "../Atoms/Card/LevelSquare";
 import { FilterContext } from "../../contexts/filterContext";
-
+import { PrivacyContext } from "../../contexts/privacyContext";
 
 /* 
  Favorite card
 */
-function FavouriteCard({
-  userFavouriteData,
-}) {
-
-
-  const a = useContext(FilterContext);
-  console.log(a);
-  // console.log(userFavouriteData);
+function FavouriteCard({ userFavouriteData }) {
   return (
     <div className="bg-black-secondary max-w-[375px] border border-[#fafafa0f] rounded-lg p-6">
       <FavouriteUpper
         currStatus={userFavouriteData.currentStatus}
         statusOptions={userFavouriteData.statusOptions}
         savedQuestionCount={userFavouriteData.savedQuestions.length}
-        practiceBtnTooltipText={userFavouriteData.savedQuestions[0].questionText}
+        practiceBtnTooltipText={
+          userFavouriteData.savedQuestions[0].questionText
+        }
         userName={userFavouriteData.username}
       />
-      <FavouriteLower
-        questionStats={userFavouriteData}
-      />
+      <FavouriteLower questionStats={userFavouriteData} />
     </div>
   );
 }
@@ -52,36 +45,41 @@ function FavouriteUpper({
 }) {
   const [currentStatus, setCurrentStatus] = useState(currStatus);
   return (
-    <div>
-      <FeaturedIcon icon={<Star className="text-yellow-secondary" />} />
-      <Heading variant="h1" className="leading-[150%]">
-        Favorite
-      </Heading>
-      <div className="flex items-center gap-2">
-        <Subtitle text={userName} />
-        <span className="text-white-primary text-sm">•</span>
-        <Subtitle text={savedQuestionCount + " questions"} />
-        <span className="text-white-primary text-sm">•</span>
-        <PrivacyBtn
-          currentStatus={currentStatus}
-          setCurrentStatus={setCurrentStatus}
-          statusOptions={statusOptions}
+
+      <div>
+        <FeaturedIcon
+          size="lg"
+          icon={<Star className="text-yellow-secondary" />}
         />
-      </div>
-
-      <div className="my-4 flex items-center gap-3 ">
-        <PracticeButton toolTipQuestion={practiceBtnTooltipText} />
-        <div className="flex gap-2">
-          {currentStatus == "public" && (
-            <RoundedIcon icon={<Share />} toolTipText={"Share"} />
-          )}
-
-          <RoundedIcon icon={<Code />} toolTipText={"Fork"} />
+        <Heading variant="h1" className="leading-[150%]">
+          Favorite
+        </Heading>
+        <div className="flex items-center gap-2">
+          <Subtitle text={userName} />
+          <span className="text-white-primary text-sm">•</span>
+          <Subtitle text={savedQuestionCount + " questions"} />
+          <span className="text-white-primary text-sm">•</span>
+          <PrivacyBtn
+            currentStatus={currentStatus}
+            setCurrentStatus={setCurrentStatus}
+            statusOptions={statusOptions}
+          />
         </div>
+
+        <div className="my-4 flex items-center gap-3 ">
+          <PracticeButton toolTipQuestion={practiceBtnTooltipText} />
+          <div className="flex gap-2">
+            {currentStatus == "public" && (
+              <RoundedIcon icon={<Share />} toolTipText={"Share"} />
+            )}
+
+            <RoundedIcon icon={<Code />} toolTipText={"Fork"} />
+          </div>
+        </div>
+
+        <hr className="border-inherit opacity-15 " />
       </div>
 
-      <hr className="border-inherit opacity-15 " />
-    </div>
   );
 }
 
@@ -89,16 +87,25 @@ function FavouriteUpper({
  Favorite cards Lower section
 */
 
-function FavouriteLower({questionStats}) {
-
-
-
-  const totalEasyCount = questionStats.savedQuestions.filter((question)=>(question.level=="easy")).length
-  const totalEasySolved = questionStats.savedQuestions.filter((question)=>(question.level=="easy" && question.submitted==true)).length
-  const totalMedCount = questionStats.savedQuestions.filter((question)=>(question.level=="med")).length
-  const totalMedSolved = questionStats.savedQuestions.filter((question)=>(question.level=="med" && question.submitted==true)).length
-  const totalHardCount = questionStats.savedQuestions.filter((question)=>(question.level=="hard")).length
-  const totalHardSolved = questionStats.savedQuestions.filter((question)=>(question.level=="hard" && question.submitted==true)).length
+function FavouriteLower({ questionStats }) {
+  const totalEasyCount = questionStats.savedQuestions.filter(
+    (question) => question.level == "easy"
+  ).length;
+  const totalEasySolved = questionStats.savedQuestions.filter(
+    (question) => question.level == "easy" && question.submitted == true
+  ).length;
+  const totalMedCount = questionStats.savedQuestions.filter(
+    (question) => question.level == "med"
+  ).length;
+  const totalMedSolved = questionStats.savedQuestions.filter(
+    (question) => question.level == "med" && question.submitted == true
+  ).length;
+  const totalHardCount = questionStats.savedQuestions.filter(
+    (question) => question.level == "hard"
+  ).length;
+  const totalHardSolved = questionStats.savedQuestions.filter(
+    (question) => question.level == "hard" && question.submitted == true
+  ).length;
 
   return (
     <div className="pt-5">

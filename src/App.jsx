@@ -1,6 +1,6 @@
+
 import Navbar from "./components/Molecules/Navbar";
 import FavouritePage from "./components/Pages/FavouritePage";
-
 
 const data = {
   username: "Shubha Sarkar",
@@ -47,11 +47,10 @@ const data = {
 };
 export default function App() {
   return (
-    <div className="box-border bg-black-primary">
+    <div className="box-border bg-black-primary w-full">
       <Navbar />
+
       <FavouritePage data={data}></FavouritePage>
     </div>
   );
 }
-
-
