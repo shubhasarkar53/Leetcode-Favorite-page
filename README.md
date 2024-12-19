@@ -2,6 +2,9 @@
 
 This project is a clone of the LeetCode Favorites Page built using **React** and **Tailwind CSS**. It is designed with best practices and scalable architecture in mind to ensure maintainability and future extensibility.
 
+## Live Demo 📍 : 
+ - https://favleet-shubha.vercel.app/
+
 ## Features and Best Practices
 
 1. **Reusable Components:**
@@ -38,6 +41,13 @@ The project follows a clear and organized folder structure:
 - **React Context API:** For efficient state management.
 - **Framer Motion:** For suttle animations in sidebar and navbar.
 
+## UI 
+- Desktop
 
+![alt text](image.png)
+
+- Mobile
+
+![alt text](image-1.png)
 
 Feel free to explore and contribute to this project!
