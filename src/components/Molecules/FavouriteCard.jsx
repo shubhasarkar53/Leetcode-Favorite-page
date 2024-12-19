@@ -11,6 +11,7 @@ import Share from "../icons/Share";
 import Refresh from "../icons/Refresh";
 import LevelSquare from "../Atoms/Card/LevelSquare";
 import { PrivacyContext } from "../../contexts/privacyContext";
+import ProgressCircle from "../Atoms/Card/ProgressCircle";
 
 /* 
  Favorite card
@@ -104,6 +105,9 @@ function FavouriteLower({ questionStats }) {
   const totalHardSolved = questionStats.savedQuestions.filter(
     (question) => question.level == "hard" && question.submitted == true
   ).length;
+  const totalSolved = questionStats.savedQuestions.filter(
+    (question) => question.submitted == true
+  ).length;
 
   return (
     <div className="pt-5">
@@ -113,7 +117,16 @@ function FavouriteLower({ questionStats }) {
       </div>
 
       <div className="flex justify-between items-center gap-2">
-        <div className="h-[176px] w-[227px]  bg-black-light rounded-md"></div>
+        <div className=" relative h-[176px] w-[227px] overflow-hidden  bg-black-light rounded-md">
+         <div className="relative w-full h-full object-cover">
+         <ProgressCircle/>
+         <div className="text-center absolute inset-0 w-[50%] aspect-square transform left-[50%] top-[50%] sm:top-[60%] -translate-x-[50%] -translate-y-[50%]">
+         <div className="text-4xl text-white-primary text-center">{totalSolved}</div>
+         <div className=" text-white-primary text-center">Solved</div>
+         </div>
+    
+         </div>
+        </div>
         <div className="flex flex-col justify-center gap-2   ">
           <LevelSquare
             level="easy"

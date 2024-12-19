@@ -9,7 +9,7 @@ import CrossIcon from "../icons/CrossIcon";
 import { motion } from "motion/react";
 function Navbar() {
   const [focusStatus, setFocusStatus] = useState(1);
-  const [navOpen, setNavOpen] = useState(1);
+  const [navOpen, setNavOpen] = useState(false);
 
   const navItems = [
     "Explore",
