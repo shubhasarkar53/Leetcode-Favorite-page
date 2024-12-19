@@ -5,8 +5,11 @@ import Bell from "../icons/Bell";
 import Fire from "../icons/Fire";
 import Container from "../LayoutHelpers/Container";
 import Bars from "../icons/Bars";
+import CrossIcon from "../icons/CrossIcon";
+import { motion } from "motion/react";
 function Navbar() {
   const [focusStatus, setFocusStatus] = useState(1);
+  const [navOpen, setNavOpen] = useState(1);
 
   const navItems = [
     "Explore",
@@ -25,6 +28,7 @@ function Navbar() {
             <div className="h-[30px] w-[30px] flex justify-center items-center ">
               <Logo className="size-5" />
             </div>
+            {/* desktop */}
             <ul className="items-center gap-6 hidden md:flex ">
               {navItems.map((item, index) => (
                 <li
@@ -48,6 +52,42 @@ function Navbar() {
                 </li>
               ))}
             </ul>
+            {/* mobile */}
+            {navOpen && (
+              <motion.ul
+                initial={{ scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                className="absolute bg-black-tersiary inset-0 z-20 p-4 md:hidden"
+              >
+                <div className=" flex justify-end items-center">
+                  <button onClick={() => setNavOpen(false)}>
+                    <CrossIcon className="size-6" />
+                  </button>
+                </div>
+                {navItems.map((item, index) => (
+                  <li
+                    className={`cursor-pointer leading-[50px]  transition-all duration-100 ease-in  ${
+                      item == "Store"
+                        ? "text-yellow-primary"
+                        : "text-[#ffffffa5] hover:text-[#ffff]"
+                    } ${
+                      focusStatus == index
+                        ? `font-semibold text-white border-b-[3px] rounded-sm ${
+                            item == "Store"
+                              ? "border-yellow-primary"
+                              : "border-white"
+                          }`
+                        : ""
+                    }`}
+                    key={index}
+                    onClick={() => setFocusStatus(index)}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </motion.ul>
+            )}
           </div>
           <div className="flex items-center  gap-4">
             <div className="hidden  md:flex md:items-center  md:gap-4 ">
@@ -62,7 +102,9 @@ function Navbar() {
                 </button>
               </div>
             </div>
+            <button onClick={() => setNavOpen(true)}>
               <Bars className=" md:hidden size-5  text-white" />
+            </button>
           </div>
         </nav>
       </Container>
