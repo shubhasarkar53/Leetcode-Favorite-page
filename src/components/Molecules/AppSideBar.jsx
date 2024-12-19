@@ -51,7 +51,7 @@ export default function AppSidebar() {
           initial={{ x: -100 }}
           animate={{ x: 0 }}
           transition={{ type: "spring", duration: 0.7 }}
-          className="min-h-[100vh] bg-black-tersiary max-w-[20%] w-[18%] text-white-primary p-4"
+          className=" absolute md:relative min-h-[100vh] z-10 bg-black-tersiary w-[70%] sm:w-[40%]  md:max-w-[20%] md:w-[18%] text-white-primary p-4"
         >
           <div className=" flex justify-between items-center px-2">
             <Heading className="font-semibold text-base">My Lists</Heading>

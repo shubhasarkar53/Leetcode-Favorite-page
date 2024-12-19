@@ -29,13 +29,13 @@ function FavouritePage({ data }) {
                     initial={{ scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ type: "spring", duration: 0.5 }}
-                    className=" absolute left-44 top-6"
+                    className=" absolute   left-2 md:left-5 xl:left-44 top-6"
                   >
                     <FoldBtn />
                   </motion.div>
                 )}
-                <main className="w-full grid grid-cols-2">
-                  <div className="w-[85%] mx-auto flex flex-col items-end mt-8">
+                <main className="w-full grid grid-cols-1 lg:grid-cols-2">
+                  <div className="w-[85%] mx-auto flex flex-col items-center lg:items-end mt-8">
                     <FavouriteCard userFavouriteData={data}></FavouriteCard>
                   </div>
                   <div className=" h-[100vh] w-full mt-8 ">

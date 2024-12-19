@@ -10,7 +10,6 @@ import Code from "../icons/Code";
 import Share from "../icons/Share";
 import Refresh from "../icons/Refresh";
 import LevelSquare from "../Atoms/Card/LevelSquare";
-import { FilterContext } from "../../contexts/filterContext";
 import { PrivacyContext } from "../../contexts/privacyContext";
 
 /* 
@@ -18,7 +17,7 @@ import { PrivacyContext } from "../../contexts/privacyContext";
 */
 function FavouriteCard({ userFavouriteData }) {
   return (
-    <div className="bg-black-secondary max-w-[375px] border border-[#fafafa0f] rounded-lg p-6">
+    <div className="bg-black-secondary w-[300px] sm:min-w-[375px]  border border-[#fafafa0f] rounded-lg p-6">
       <FavouriteUpper
         currStatus={userFavouriteData.currentStatus}
         statusOptions={userFavouriteData.statusOptions}
@@ -38,48 +37,47 @@ function FavouriteCard({ userFavouriteData }) {
 */
 function FavouriteUpper({
   statusOptions,
-  currStatus,
   userName,
   savedQuestionCount,
   practiceBtnTooltipText,
 }) {
-  const [currentStatus, setCurrentStatus] = useState(currStatus);
+  const [currentStatus, setCurrentStatus] = useContext(PrivacyContext);
   return (
-
-      <div>
-        <FeaturedIcon
-          size="lg"
-          icon={<Star className="text-yellow-secondary" />}
-        />
-        <Heading variant="h1" className="leading-[150%]">
-          Favorite
-        </Heading>
-        <div className="flex items-center gap-2">
+    <div>
+      <FeaturedIcon
+        size="lg"
+        icon={<Star className="text-yellow-secondary" />}
+      />
+      <Heading variant="h1" className="leading-[150%]">
+        Favorite
+      </Heading>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="flex items-center  gap-2">
           <Subtitle text={userName} />
           <span className="text-white-primary text-sm">•</span>
           <Subtitle text={savedQuestionCount + " questions"} />
           <span className="text-white-primary text-sm">•</span>
-          <PrivacyBtn
-            currentStatus={currentStatus}
-            setCurrentStatus={setCurrentStatus}
-            statusOptions={statusOptions}
-          />
         </div>
-
-        <div className="my-4 flex items-center gap-3 ">
-          <PracticeButton toolTipQuestion={practiceBtnTooltipText} />
-          <div className="flex gap-2">
-            {currentStatus == "public" && (
-              <RoundedIcon icon={<Share />} toolTipText={"Share"} />
-            )}
-
-            <RoundedIcon icon={<Code />} toolTipText={"Fork"} />
-          </div>
-        </div>
-
-        <hr className="border-inherit opacity-15 " />
+        <PrivacyBtn
+          currentStatus={currentStatus}
+          setCurrentStatus={setCurrentStatus}
+          statusOptions={statusOptions}
+        />
       </div>
 
+      <div className="my-4 flex items-center gap-3 ">
+        <PracticeButton toolTipQuestion={practiceBtnTooltipText} />
+        <div className="flex gap-2">
+          {currentStatus == "public" && (
+            <RoundedIcon icon={<Share />} toolTipText={"Share"} />
+          )}
+
+          <RoundedIcon icon={<Code />} toolTipText={"Fork"} />
+        </div>
+      </div>
+
+      <hr className="border-inherit opacity-15 " />
+    </div>
   );
 }
 
