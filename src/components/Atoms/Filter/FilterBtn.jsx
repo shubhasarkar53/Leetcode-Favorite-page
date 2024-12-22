@@ -12,6 +12,13 @@ function FilterBtn() {
   function handleModal() {
     setIsVisible((prev) => !prev);
   }
+
+  function removeFilter(filterToBeRemoved) {
+    setFilterArr((prevFilters) =>
+      prevFilters.filter((filter) => filter !== filterToBeRemoved)
+    );
+  }
+
   const modalRef = useRef(null);
   useEffect(() => {
     function handleOutSideClick(event) {
@@ -53,7 +60,9 @@ function FilterBtn() {
                 className={`${btnWhiteBaseStyle} text-xs font-base capitalize py-1 px-2  items-center  rounded-full`}
               >
                 <div> {filter}</div>
-                <CrossIcon className="size-4" />
+                <button onClick={() => removeFilter(filter)}>
+                  <CrossIcon className="size-4" />
+                </button>
               </div>
             );
           })}
