@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Down from "../../icons/Down";
 import Globe from "../../icons/Globe";
 import Lock from "../../icons/Lock";
@@ -14,6 +14,30 @@ function PrivacyBtn({ statusOptions }) {
   const [currentStatus, setCurrentStatus] = useContext(PrivacyContext)
 
   const [isVisible, setIsVisible] = useState(false);
+
+
+  const privacyDropDownModalRef = useRef(null);
+
+  useEffect(()=>{
+
+
+    function handleOutsideClick(event){
+      if(privacyDropDownModalRef.current && !privacyDropDownModalRef.current.contains(event.target)){
+        setIsVisible(false)
+      }
+    }
+
+
+    if(isVisible){
+      document.addEventListener("mousedown",handleOutsideClick)
+    }
+
+    return () =>{
+      document.removeEventListener("mousedown",handleOutsideClick)
+    }
+
+  },[isVisible])
+
 
   function handleCurrentStatus(status) {
     setCurrentStatus(status);
@@ -49,7 +73,7 @@ function PrivacyBtn({ statusOptions }) {
         </div>
 
         {isVisible && (
-          <div className="absolute left-0 top-8 bg-black-light rounded-md capitalize p-1 py-2 z-30">
+          <div ref={privacyDropDownModalRef} className="absolute left-0 top-8 bg-black-light rounded-md capitalize p-1 py-2 z-30">
             {statusOptions.map((option, index) => {
               return (
                 <div

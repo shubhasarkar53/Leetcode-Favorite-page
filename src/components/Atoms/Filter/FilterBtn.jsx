@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import FilterIcon from "../../icons/Filter";
 import Modal from "./Modal";
 import CheckBox from "./CheckBox";
@@ -8,9 +8,26 @@ import CrossIcon from "../../icons/CrossIcon";
 function FilterBtn() {
   const [isVisible, setIsVisible] = useState(false);
   const [filterArr, setFilterArr] = useContext(FilterContext);
+
   function handleModal() {
     setIsVisible((prev) => !prev);
   }
+  const modalRef = useRef(null);
+  useEffect(() => {
+    function handleOutSideClick(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsVisible(false);
+      }
+    }
+
+    if (isVisible) {
+      document.addEventListener("mousedown", handleOutSideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [isVisible]);
 
   const btnWhiteBaseStyle = `flex gap-2  border border-[#ffffff25] ${
     filterArr.length !== 0
@@ -44,24 +61,31 @@ function FilterBtn() {
       </div>
 
       {/* modal */}
-      <div className="relative w-[33%]">
+      <>
         {isVisible && (
-          <Modal className="top-3">
-            <div className="flex flex-col gap-2 w-full">
-              <div className="text-sm font-medium ">Difficulty</div>
-              <ul className=" w-full h-full flex items-center justify-between flex-wrap gap-2">
-                {["easy", "medium", "hard"].map((item, index) => {
-                  return <CheckBox on item={item} index={index} key={index} />;
-                })}
-              </ul>
-              <button onClick={()=> setFilterArr([])} className="my-3 px-4 py-2 bg-black-light-2 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 text-sm font-medium text-white-primary hover:bg-[#3d3d3b]">
-                {" "}
-                <Refresh className="size-5" /> Reset{" "}
-              </button>
-            </div>
-          </Modal>
+          <div ref={modalRef} className="relative w-[33%]">
+            <Modal className="top-3">
+              <div className="flex flex-col gap-2 w-full">
+                <div className="text-sm font-medium ">Difficulty</div>
+                <ul className=" w-full h-full flex items-center justify-between flex-wrap gap-2">
+                  {["easy", "medium", "hard"].map((item, index) => {
+                    return (
+                      <CheckBox on item={item} index={index} key={index} />
+                    );
+                  })}
+                </ul>
+                <button
+                  onClick={() => setFilterArr([])}
+                  className="my-3 px-4 py-2 bg-black-light-2 rounded-md cursor-pointer w-full flex items-center justify-center gap-2 text-sm font-medium text-white-primary hover:bg-[#3d3d3b]"
+                >
+                  {" "}
+                  <Refresh className="size-5" /> Reset{" "}
+                </button>
+              </div>
+            </Modal>
+          </div>
         )}
-      </div>
+      </>
     </div>
   );
 }

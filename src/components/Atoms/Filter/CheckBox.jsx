@@ -21,8 +21,9 @@ function CheckBox({ item, index }) {
   const isChecked = filterArr.includes(item );
 
   return (
-    <li key={index} className="flex items-center gap-2">
+    <li key={index} className="flex items-center gap-2 ">
       <input
+      
         onChange={handleCheckBoxValue}
         type="checkbox"
         checked={isChecked}
@@ -36,10 +37,11 @@ function CheckBox({ item, index }) {
   checked:bg-white-secondary checked:border-0 
   focus:outline-none focus:ring-offset-0 focus:ring-2 
   disabled:border-steel-400 disabled:bg-steel-400
+  cursor-pointer
 "
       />
       <label
-        className={`${
+        className={`cursor-pointer ${
           (item == "easy" && easyStyle) ||
           (item == "medium" && medStyle) ||
           (item == "hard" && hardStyle) ||
